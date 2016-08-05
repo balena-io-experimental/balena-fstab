@@ -1,11 +1,14 @@
 FROM resin/%%RESIN_MACHINE_NAME%%-debian
 
+MAINTAINER Gergely Imreh <gergely@resin.io>
+
 WORKDIR /usr/src/app
 
 # Enable systemd
 ENV INITSYSTEM on
 
-RUN echo "tmpfs   /cache    tmpfs  rw,size=200M  0  0" >> /etc/fstab
+# Create an exctra mount point
+RUN echo "tmpfs  /cache  tmpfs  rw,size=200M,nosuid,nodev,noexec  0 0" >> /etc/fstab
 
 # copy current directory into /app
 COPY . ./
